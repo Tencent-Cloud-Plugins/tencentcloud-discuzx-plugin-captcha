@@ -1,0 +1,29 @@
+(function () {
+var idhash = $('tencentcloudcaptcha').className;
+var dataAppId = '{$config[captchaAppId]}';
+var showHtml ='<input name="seccodehash" type="hidden" value="'+idhash+'" />
+<button type="button" name="codeVerifyButton" id="codeVerifyButton" data-appid="'+dataAppId+'" class="button">我不是人机</button>
+<input type="button" id="codePassButton" disabled="disabled" value="已通过验证" />
+<input type="hidden" id="codeVerifyTicket" name="codeVerifyTicket" value=""/>
+<input type="hidden" id="codeVerifyRandstr" name="codeVerifyRandstr" value=""/>';
+var sectpl = seccheck_tpl[idhash] != '' ? seccheck_tpl[idhash].replace(/<hash>/g, 'code' + idhash).replace(/_menu/g, '_hidden') : '';
+    var sectplcode = sectpl != '' ? sectpl.split('<sec>') : Array('<br />', ': ', '<br />', '');
+        var string = sectplcode[0] +'人机验证'+ sectplcode[1] + showHtml + sectplcode[2] + sectplcode[3];
+        var showid = 'seccode_' + idhash;
+        $(showid).innerHTML = string;
+        $('codePassButton').setAttribute("style","display:none");
+        appendscript('https://ssl.captcha.qq.com/TCaptcha.js', '', 1);
+        $('codeVerifyButton').onclick = function () {
+        $('codeVerifyTicket').value='';
+        $('codeVerifyRandstr').value='';
+        var captcha1 = new TencentCaptcha( document.getElementById('codeVerifyButton').getAttribute('data-appid'), function (res) {
+            if (res.ret == 0) {
+                $('codeVerifyTicket').value=res.ticket;
+                $('codeVerifyRandstr').value=res.randstr;
+                document.getElementById('codeVerifyButton').style.display="none";
+                document.getElementById('codePassButton').style.display="block";
+            }
+        });
+        captcha1.show();
+        };
+})()
