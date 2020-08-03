@@ -19,6 +19,12 @@ if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
 global $_G;
+$file = DISCUZ_ROOT . './source/plugin/tencentcloud_center';
+if (!is_dir($file)) {
+    $landurl = 'action=plugins';
+    cpmsg('插件设置页面加载失败，请先安装腾讯云全局配置插件。', $landurl . (!empty($_GET['system']) ? '&system=1' : ''), 'error');
+    return;
+}
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
 /**

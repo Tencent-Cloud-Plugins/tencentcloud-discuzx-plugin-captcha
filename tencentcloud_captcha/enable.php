@@ -20,6 +20,12 @@ const PLUGIN_AVAILABE_FLAG = '1';
 if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
+$file = DISCUZ_ROOT . './source/plugin/tencentcloud_center';
+if (!is_dir($file)) {
+    $landurl = 'action=plugins';
+    cpmsg('插件启用失败，请先安装腾讯云全局配置插件。', $landurl . (!empty($_GET['system']) ? '&system=1' : ''), 'error');
+    return;
+}
 $pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
 if ($pluginInfo['available'] != PLUGIN_AVAILABE_FLAG){
     C::t('common_plugin')->update($pluginInfo['pluginid'], array('available' => PLUGIN_AVAILABE_FLAG));
