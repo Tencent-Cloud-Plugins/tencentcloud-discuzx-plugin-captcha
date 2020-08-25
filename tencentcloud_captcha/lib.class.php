@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//自定义密钥关闭标志
+
 const CUSTOM_SECRET_FLAG_OFF = '0';
 const CUSTOM_SECRET_FLAG_ON = '1';
 const SITE_SEC_OPEN = '1';

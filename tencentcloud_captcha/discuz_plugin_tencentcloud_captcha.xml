@@ -2,12 +2,12 @@
 <root>
 	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
 	<item id="Version"><![CDATA[X3.4]]></item>
-	<item id="Time"><![CDATA[2020-07-03 14:42]]></item>
-	<item id="From"><![CDATA[]]></item>
+	<item id="Time"><![CDATA[2020-08-20 10:27]]></item>
+	<item id="From"><![CDATA[Discuz! Board (http://host.dzx.com/)]]></item>
 	<item id="Data">
 		<item id="plugin">
-			<item id="available"><![CDATA[0]]></item>
-			<item id="adminid"><![CDATA[0]]></item>
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
 			<item id="name"><![CDATA[腾讯云验证码]]></item>
 			<item id="identifier"><![CDATA[tencentcloud_captcha]]></item>
 			<item id="description"><![CDATA[腾讯云验证码，通过腾讯云验证码提供立体、全面的人机验证。本插件直接接入系统的验证码模块，因此验证相关设置请直接到系统后台-防灌水-验证设置，而不在插件这边。]]></item>
@@ -44,10 +44,50 @@
 				</item>
 			</item>
 		</item>
+		<item id="version"><![CDATA[X3.4]]></item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="plugin_name"><![CDATA[腾讯云验证码]]></item>
+				<item id="description"><![CDATA[提供丰富的安全认证]]></item>
+				<item id="copyright"><![CDATA[腾讯云]]></item>
+				<item id="plugin_operate_fail"><![CDATA[插件关闭失败，请先安装腾讯云全局配置插件。]]></item>
+			</item>
+			<item id="templatelang">
+				<item id="description"><![CDATA[插件说明]]></item>
+				<item id="description_detail"><![CDATA[腾讯云验证码提供立体、全面的人机验证。本插件已接入系统的验证码模块，开启后请前往 <a href="admin.php?action=setting&operation=seccheck">系统后台-防灌-验证设置</a>进行具体场景的验证码配置。]]></item>
+				<item id="settings"><![CDATA[参数设置]]></item>
+				<item id="secrets"><![CDATA[自定义密钥]]></item>
+				<item id="SecretId"><![CDATA[SecretId]]></item>
+				<item id="Secretkey"><![CDATA[Secretkey]]></item>
+				<item id="CaptchaAppId"><![CDATA[CaptchaAppId]]></item>
+				<item id="CaptchaAppKey"><![CDATA[CaptchaAppKey]]></item>
+				<item id="SecretkeyDescrible"><![CDATA[访问<a href="https://console.qcloud.com/cam/capi" target="_blank">密钥管理</a>获取SecretId和SecretKey或通过"新建密钥"创建密钥串]]></item>
+				<item id="CaptchaAppKeyDescrible"><![CDATA[访问<a href="https://console.cloud.tencent.com/captcha" target="_blank">CaptchaAppId列表</a>获取CaptchaAppId和CaptchaAppSecretKey或通过"新建验证"创建CaptchaAppId]]></item>
+				<item id="yes"><![CDATA[是]]></item>
+				<item id="no"><![CDATA[否]]></item>
+				<item id="document"><![CDATA[文档中心]]></item>
+				<item id="feedback"><![CDATA[反馈建议]]></item>
+				<item id="save"><![CDATA[保存设置]]></item>
+				<item id="not_machine"><![CDATA[我不是人机]]></item>
+				<item id="check_ok"><![CDATA[已通过验证]]></item>
+				<item id="machine_check"><![CDATA[人机验证]]></item>
+				<item id="hello"><![CDATA[亲爱的Discuz! X用户，您好: ]]></item>
+				<item id="hello_1"><![CDATA[当前您期望配置的插件，依赖“【Discuz! X】<a href="https://openapp.qq.com/docs/DiscuzX/center.html" target="_blank">腾讯云全局配置插件</a>”的安装。我们发现您的环境里没有合理安装该插件。]]></item>
+				<item id="install_method"><![CDATA[您可以通过以下方式来重新安装插件。]]></item>
+				<item id="install_method_one"><![CDATA[方法一：通过GitHub下载插件文件的方式:]]></item>
+				<item id="method_one_step_one"><![CDATA[1.请访问<a href="https://github.com/Tencent-Cloud-Plugins/tencentcloud-discuzx-plugin-center" target="_blank">Github</a>]]></item>
+				<item id="method_one_step_two"><![CDATA[2.下载源码压缩包]]></item>
+				<item id="method_one_step_three"><![CDATA[3.复制tencentcloud-center 文件夹 到Discuz! X安装路径/source/plugin/文件夹里面]]></item>
+				<item id="install_method_two"><![CDATA[方法二：通过Dismall安装下载插件的方式:]]></item>
+				<item id="method_two_step_one"><![CDATA[1.请访问<a href="https://addon.dismall.com/" target="_blank">Discuz! X插件中心</a>]]></item>
+				<item id="method_two_step_two"><![CDATA[2.搜索 tencentcloud_center]]></item>
+				<item id="method_two_step_three"><![CDATA[3.找到对应的应用，完成安装]]></item>
+				<item id="method_two_final"><![CDATA[完成上述操作后，请重新回到“<a href="admin.php?action=plugins">插件配置页面</a> ”重新启用配置该插件。]]></item>
+			</item>
+		</item>
 		<item id="installfile"><![CDATA[install.php]]></item>
 		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
 		<item id="enablefile"><![CDATA[enable.php]]></item>
 		<item id="disablefile"><![CDATA[disable.php]]></item>
-		<item id="version"><![CDATA[X3.1]]></item>
 	</item>
 </root>

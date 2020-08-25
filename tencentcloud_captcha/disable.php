@@ -18,9 +18,25 @@
 if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
+
+$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+
+$file = DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
+
+if (!is_file($file) || !isset($pluginInfo)) {
+    $landurl = 'action=plugins';
+    $tencentcloud_captcha = lang('plugin/tencentcloud_captcha');
+    cpmsg($tencentcloud_captcha['plugin_operate_fail'], $landurl . (!empty($_GET['system']) ? '&system=1' : ''), 'error');
+    return;
+}
+
 runquery("UPDATE cdb_tencentcloud_pluginInfo SET status = 'false'  WHERE plugin_name='tencentcloud_captcha'");
+
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
+
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
-$data=getTencentCloudDiscuzStaticData('deactivate','');
+
+$data=getTencentCloudDiscuzStaticData('deactivate');
+
 TencentCloudHelper::sendUserExperienceInfo($data);
 

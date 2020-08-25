@@ -20,15 +20,15 @@ if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 }
 global $_G;
 $file = DISCUZ_ROOT . './source/plugin/tencentcloud_center';
-if (!is_dir($file)) {
-    $landurl = 'action=plugins';
-    cpmsg('插件设置页面加载失败，请先安装腾讯云全局配置插件。', $landurl . (!empty($_GET['system']) ? '&system=1' : ''), 'error');
-    return;
+$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+if (!is_dir($file) || !isset($pluginInfo)) {
+   include template('tencentcloud_captcha:error');
+   return;
 }
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
 /**
- * 判断是否是插件设置保存
+ * check params
  */
 if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['tencentcloudcaptcha'])){
     $data = $_POST['tencentcloudcaptcha'];
@@ -45,7 +45,7 @@ if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['tencentcloudcaptcha']
     TencentCloudHelper::sendUserExperienceInfo($staticData);
     cpmsg('plugins_edit_succeed', $landurl, 'succeed');
 }
-//获取插件配置参数
+
 $config=config();
 include template('tencentcloud_captcha:captchasetting');
 
