@@ -2,83 +2,80 @@
 <form  method="POST" id='tencent' >
     <table class="tb tb2">
         <tr>
-            <th colspan="15" class="partition">插件说明</th>
+            <th colspan="15" class="partition">{lang tencentcloud_captcha:description}</th>
         </tr>
         <tr>
             <td class="tipsblock" s="1">
                 <ul id="seccode_tipslis">
-                    <li style="width: max-content">
-                        腾讯云验证码提供立体、全面的人机验证。本插件已接入系统的验证码模块，开启后请前往 <a href="admin.php?action=setting&operation=seccheck">系统后台-防灌-验证设置</a>进行具体场景的验证码配置。</li>
+                    <li style="width: max-content">{lang tencentcloud_captcha:description_detail}</li>
                 </ul>
             </td>
         </tr>
 
 
         <tr>
-        <th colspan="15" class="partition">参数设置</th>
+            <th colspan="15" class="partition">{lang tencentcloud_captcha:settings}</th>
         </tr>
 
-    <tr>
-        <td colspan="2" class="td27" s="1">自定义密钥:</td>
-    </tr>
-    <tr class="noborder">
-        <td class="vtop rowform">
-            <ul onmouseover="altStyle(this);">
-                <li id="customyes">
-                    <input class="radio" type="radio" name="tencentcloudcaptcha[customSecret]" value="1" onclick="switchKey(1)">是
-                </li>
-                <li id="customno" class="checked">
-                    <input class="radio" type="radio" name="tencentcloudcaptcha[customSecret]" value="0"  onclick="switchKey(0)">
-                    否</li>
-            </ul>
-        </td>
-    </tr>
         <tr>
-            <td colspan="2" class="td27" s="1">SecretId:</td>
+            <td colspan="2" class="td27" s="1">{lang tencentcloud_captcha:secrets}:</td>
+        </tr>
+        <tr class="noborder">
+            <td class="vtop rowform">
+                <ul onmouseover="altStyle(this);">
+                    <li id="customyes">
+                        <input class="radio" type="radio" name="tencentcloudcaptcha[customSecret]" value="1" onclick="switchKey(1)">{lang tencentcloud_captcha:yes}
+                    </li>
+                    <li id="customno" class="checked">
+                        <input class="radio" type="radio" name="tencentcloudcaptcha[customSecret]" value="0"  onclick="switchKey(0)">
+                        {lang tencentcloud_captcha:no}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td27" s="1">{lang tencentcloud_captcha:SecretId}:</td>
         </tr>
         <tr class="noborder">
             <td class="vtop rowform">
                 <input name="tencentcloudcaptcha[secretId]" id="secretId"  size="50" type="text" class="text" value="{$config['secretId']}">
             </td>
-            <td class="vtop tips2" s="1">SecretId</td>
+            <td class="vtop tips2" s="1">{lang tencentcloud_captcha:SecretId}</td>
         </tr>
         <tr>
-            <td colspan="2" class="td27" s="1">SecretKey:</td>
+            <td colspan="2" class="td27" s="1">{lang tencentcloud_captcha:Secretkey}:</td>
         </tr>
         <tr class="noborder">
             <td class="vtop rowform">
                 <input name="tencentcloudcaptcha[secretKey]"  size="50" id="secretKey" type="text" class="text" value="{$config['secretKey']}">
             </td>
-            <td class="vtop tips2" s="1">访问<a href="https://console.qcloud.com/cam/capi" target="_blank">密钥管理</a>获取
-                SecretId和SecretKey或通过"新建密钥"创建密钥串</td>
+            <td class="vtop tips2" s="1">{lang tencentcloud_captcha:SecretkeyDescrible}</td>
         </tr>
 
         <tr>
-            <td colspan="2" class="td27" s="1">CaptchaAppId:</td>
+            <td colspan="2" class="td27" s="1">{lang tencentcloud_captcha:CaptchaAppId}:</td>
         </tr>
         <tr class="noborder">
             <td class="vtop rowform">
                 <input name="tencentcloudcaptcha[captchaAppId]"  size="50" type="text" class="text" value="{$config['captchaAppId']}">
             </td>
-            <td class="vtop tips2" s="1">CaptchaAppId</td>
+            <td class="vtop tips2" s="1">{lang tencentcloud_captcha:CaptchaAppId}</td>
         </tr>
 
         <tr>
-            <td colspan="2" class="td27" s="1">CaptchaAppKey:</td>
+            <td colspan="2" class="td27" s="1">{lang tencentcloud_captcha:CaptchaAppKey}:</td>
         </tr>
         <tr class="noborder">
             <td class="vtop rowform">
                 <input name="tencentcloudcaptcha[captchaAppKey]"  size="50" type="text" class="text" value="{$config['captchaAppKey']}">
             </td>
-            <td class="vtop tips2" s="1">访问<a href="https://console.cloud.tencent.com/captcha" target="_blank">CaptchaAppId列表</a>获取
-                CaptchaAppId和CaptchaAppSecretKey或通过"新建验证"创建CaptchaAppId</td>
+            <td class="vtop tips2" s="1">{lang tencentcloud_captcha:CaptchaAppKeyDescrible}</td>
         </tr>
 
 
         <tr>
             <td colspan="15">
                 <div class="fixsel">
-                <input type="submit" class="btn"  id="captchasubmit" value="保存设置" />
+                    <input type="submit" class="btn"  id="captchasubmit" value="{lang tencentcloud_captcha:save}" />
                 </div>
             </td>
         </tr>
@@ -87,8 +84,8 @@
 
 </form>
 <div style="text-align: center" >
-    <a href="https://openapp.qq.com/" target="_blank">文档中心</a> | <a href="https://github.com/Tencent-Cloud-Plugins/" target="_blank">GitHub</a> | <a
-        href="https://support.qq.com/product/164613" target="_blank">反馈建议</a>
+    <a href="https://openapp.qq.com/" target="_blank">{lang tencentcloud_captcha:document}</a> | <a href="https://github.com/Tencent-Cloud-Plugins/" target="_blank">GitHub</a> | <a
+        href="https://support.qq.com/product/164613" target="_blank">{lang tencentcloud_captcha:feedback}</a>
 </div>
 <script>
     var customSelect = '{$config["customSecret"]}';

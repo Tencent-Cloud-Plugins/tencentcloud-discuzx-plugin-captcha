@@ -30,33 +30,35 @@ if (!defined('IN_DISCUZ')) {
 }
 
 class seccode_captcha {
-    //自定义密钥标记 0-未开启 1-已开启
+    //set global secret  0-off 1-on
     const CUSTOM_SECRET_FLAG_OFF = '0';
-    //验证码验证通过标记 1-通过 其它-失败
+    //valied captcha function  1-pass others-fail
     const VERIFY_SUCCESS_FLG = 1;
-    //版本号
     public $version = '1.1.0';
-    //名称
-    public $name = '腾讯云验证码';
-    //描述
-    public $description = '提供丰富的安全认证';
-    //作者
-    public $copyright = '腾讯云';
+    public $name = '';
+    public $description = '';
+    public $copyright = '';
+
+    public function __construct()
+    {
+        $tencentcloud_captcha = lang('plugin/tencentcloud_captcha');
+        $this->name = $tencentcloud_captcha['plugin_name'];
+        $this->description = $tencentcloud_captcha['description'];
+        $this->copyright = $tencentcloud_captcha['copyright'];
+    }
 
     /**
-     * 校验验证码
-     * @return bool true通过/false不通过
+     * valide captcha
+     * @return bool true/false
      */
     public function check(){
         global $_G;
-        //判断缓存是否存在，不存在加载缓存
+
         if (!isset($_G['setting']['tencentcloud_captcha'])){
             loadcache('setting');
         }
-        //反序列化保存的数据
         $params = unserialize($_G['setting']['tencentcloud_captcha']);
-        //判断是否开启了自定义密钥
-        //TODO:定义成明确意义的常量
+
         if ($params['customSecret'] == self::CUSTOM_SECRET_FLAG_OFF && isset($_G['setting']['tencentcloud_center'])){
             $centerConfig = unserialize($_G['setting']['tencentcloud_center']);
             $params['secretId'] = $centerConfig['secretId'];
@@ -64,9 +66,8 @@ class seccode_captcha {
         }
         $ticket = $_GET['codeVerifyTicket'];
         $randStr = $_GET['codeVerifyRandstr'];
-        //验证验证码
+
         $verifyCode = self::verifyCodeReal($params['secretId'],$params['secretKey'],$ticket,$randStr,$params['captchaAppId'],$params['captchaAppKey']);
-        //判断返回结果是否通过
         if ($verifyCode['CaptchaCode'] != self::VERIFY_SUCCESS_FLG) {
             return false;
         }else{
@@ -75,8 +76,8 @@ class seccode_captcha {
     }
 
     /**
-     * 输出验证码
-     * @param $idhash 表单hash
+     * output
+     * @param $idhash formm hash
      */
     public function make($idhash){
         global $_G;
@@ -85,13 +86,13 @@ class seccode_captcha {
     }
 
     /**
-     * 验证码服务端验证
-     * @param $secretID 腾讯云密钥ID
-     * @param $secretKey 腾讯云密钥Key
-     * @param $ticket 用户验证票据
-     * @param $randStr 用户验证时随机字符串
-     * @param $codeAppId 验证码应用ID
-     * @param $codeSecretKey 验证码应用蜜月
+     * check captcha on server
+     * @param $secretID
+     * @param $secretKey
+     * @param $ticket
+     * @param $randStr
+     * @param $codeAppId
+     * @param $codeSecretKey
      * @return array|mixed
      */
     public static function verifyCodeReal($secretID, $secretKey,$ticket, $randStr, $codeAppId, $codeSecretKey){

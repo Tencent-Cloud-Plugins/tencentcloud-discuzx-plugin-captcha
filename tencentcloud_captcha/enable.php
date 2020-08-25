@@ -15,18 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// 插件激活标志 1-已激活 0-未激活
+// plugin_status 1-activate 0-deactivate
 const PLUGIN_AVAILABE_FLAG = '1';
 if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
 $file = DISCUZ_ROOT . './source/plugin/tencentcloud_center';
-if (!is_dir($file)) {
+$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+if (!is_dir($file) || !isset($pluginInfo)) {
     $landurl = 'action=plugins';
-    cpmsg('插件启用失败，请先安装腾讯云全局配置插件。', $landurl . (!empty($_GET['system']) ? '&system=1' : ''), 'error');
+    $tencentcloud_captcha = lang('plugin/tencentcloud_captcha');
+    cpmsg($tencentcloud_captcha['plugin_operate_fail'], $landurl . (!empty($_GET['system']) ? '&system=1' : ''), 'error');
     return;
 }
-$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+
 if ($pluginInfo['available'] != PLUGIN_AVAILABE_FLAG){
     C::t('common_plugin')->update($pluginInfo['pluginid'], array('available' => PLUGIN_AVAILABE_FLAG));
 }

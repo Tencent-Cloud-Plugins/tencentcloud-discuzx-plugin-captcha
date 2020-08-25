@@ -20,7 +20,7 @@ if(!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
 /**
- * 判断是否需要重新加载缓存
+ * reload cache
  */
 if(isset($_GET['action']) && $_GET['action']=='plugins' && isset($_GET['operation']) && $_GET['operation']=='config' && isset($_GET['tencentcloudcaptcha']['captchaAppId'])) {
     updatecache('tencentcloud_captcha:conf');

@@ -26,7 +26,7 @@ $careatesql = "CREATE TABLE IF NOT EXISTS cdb_tencentcloud_pluginInfo (
        `plugin_id` varchar(255) NOT NULL DEFAULT '',
        `activation` varchar(32) NOT NULL DEFAULT '',
        `status` varchar(32) NOT NULL DEFAULT '',
-       `install_datetime` bigint NOT NULL DEFAULT  0,
+       `install_datetime` bigint NOT NULL DEFAULT 0,
        `last_modify_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
        PRIMARY KEY (`plugin_name`)
 ) ENGINE=InnoDB;
@@ -37,7 +37,7 @@ $href = 'admin.php?action=plugins&operation=config&do='.$pluginId;
 $time = time();
 $inserSQL=<<<EOF
 REPLACE INTO pre_tencentcloud_pluginInfo (`plugin_name`, `version`, `href`, `plugin_id`, `activation`,`status`, `install_datetime`)
-    VALUES ('tencentcloud_captcha', '1.0.0', '$href', '$pluginId', 'true', 'false', '$time');
+    VALUES ( 'tencentcloud_captcha', '1.0.0', '$href', '$pluginId', 'true', 'false', '$time');
 EOF;
 runquery($inserSQL);
 $finish = TRUE;
