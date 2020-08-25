@@ -26,7 +26,6 @@ $careatesql = "CREATE TABLE IF NOT EXISTS cdb_tencentcloud_pluginInfo (
        `plugin_id` varchar(255) NOT NULL DEFAULT '',
        `activation` varchar(32) NOT NULL DEFAULT '',
        `status` varchar(32) NOT NULL DEFAULT '',
-       `install_datetime` timestamp NOT NULL DEFAULT  CURRENT_TIMESTAMP(),
        `last_modify_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
        PRIMARY KEY (`plugin_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
