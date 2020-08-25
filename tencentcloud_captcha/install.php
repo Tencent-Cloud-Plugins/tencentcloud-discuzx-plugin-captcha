@@ -29,7 +29,7 @@ $careatesql = "CREATE TABLE IF NOT EXISTS cdb_tencentcloud_pluginInfo (
        `install_datetime` bigint NOT NULL DEFAULT  0,
        `last_modify_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
        PRIMARY KEY (`plugin_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 ";
 runquery($careatesql);
 $pluginId = $_G['gp_pluginid'];
