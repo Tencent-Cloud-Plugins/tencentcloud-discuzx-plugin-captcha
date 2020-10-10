@@ -10,6 +10,7 @@ var sectpl = seccheck_tpl[idhash] != '' ? seccheck_tpl[idhash].replace(/<hash>/g
     var sectplcode = sectpl != '' ? sectpl.split('<sec>') : Array('<br />', ': ', '<br />', '');
         var string = sectplcode[0] +'{lang tencentcloud_captcha:machine_check}'+ sectplcode[1] + showHtml + sectplcode[2] + sectplcode[3];
         var showid = 'seccode_' + idhash;
+        var spanid = 'checkseccodeverify_' + idhash;
         $(showid).innerHTML = string;
         $('codePassButton').setAttribute("style","display:none");
         appendscript('https://ssl.captcha.qq.com/TCaptcha.js', '', 1);
@@ -21,7 +22,11 @@ var sectpl = seccheck_tpl[idhash] != '' ? seccheck_tpl[idhash].replace(/<hash>/g
                 $('codeVerifyTicket').value=res.ticket;
                 $('codeVerifyRandstr').value=res.randstr;
                 document.getElementById('codeVerifyButton').style.display="none";
-                document.getElementById('codePassButton').style.display="block";
+                document.getElementById('codePassButton').style.display="inline";
+                var span_node = document.createElement('span');
+                span_node.id = spanid;
+                span_node.innerHTML = '<img src="static/image/common/check_right.gif" width="16" height="16" class="vm">';
+                document.getElementById(showid).appendChild(span_node);
             }
         });
         captcha1.show();
