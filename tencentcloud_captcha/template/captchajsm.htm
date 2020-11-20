@@ -1,0 +1,29 @@
+(function () {
+    var idhash = $('input[name=seccodehash]').val();
+    var dataAppId = '{$config[captchaAppId]}';
+    var showHtml = '<input name="seccodehash" type="hidden" value="'+idhash+'" />
+<button type="button" name="codeVerifyButton" onclick="showsecode()" id="codeVerifyButton" data-appid="'+dataAppId+'" class="button">{lang tencentcloud_captcha:not_machine_mobile}</button>
+<input type="button" id="codePassButton" disabled="disabled" value="{lang tencentcloud_captcha:check_ok}" />
+<input type="hidden" id="codeVerifyTicket" name="codeVerifyTicket" value=""/>
+<input type="hidden" id="codeVerifyRandstr" name="codeVerifyRandstr" value=""/>';
+
+    var sectplcode = Array('<br />', ': ', '<br />', '');
+    var string = sectplcode[0] +'{lang tencentcloud_captcha:machine_check}'+ sectplcode[1] + showHtml + sectplcode[2] + sectplcode[3];
+
+    $('input[name=seccodeverify]').parent().html(string);
+    document.getElementById('codePassButton').style.display = "none";
+    appendscript('https://ssl.captcha.qq.com/TCaptcha.js', '', 1);
+    window.showsecode = function () {
+        document.getElementById('codeVerifyTicket').value = '';
+        document.getElementById('codeVerifyRandstr').value = '';
+        var captcha = new TencentCaptcha(document.getElementById('codeVerifyButton').getAttribute('data-appid'), function (res) {
+            if (res.ret == 0) {
+                document.getElementById('codeVerifyTicket').value = res.ticket;
+                document.getElementById('codeVerifyRandstr').value = res.randstr;
+                document.getElementById('codeVerifyButton').style.display = "none";
+                document.getElementById('codePassButton').style.display = "inline";
+            }
+        });
+        captcha.show();
+    };
+})()

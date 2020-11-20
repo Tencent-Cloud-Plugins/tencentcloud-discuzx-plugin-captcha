@@ -37,7 +37,7 @@ $href = 'admin.php?action=plugins&operation=config&do='.$pluginId;
 $time = time();
 $inserSQL=<<<EOF
 REPLACE INTO pre_tencentcloud_pluginInfo (`plugin_name`, `version`, `href`, `plugin_id`, `activation`,`status`, `install_datetime`)
-    VALUES ( 'tencentcloud_captcha', '1.0.0', '$href', '$pluginId', 'true', 'false', '$time');
+    VALUES ( 'tencentcloud_captcha', '1.0.3', '$href', '$pluginId', 'true', 'false', '$time');
 EOF;
 runquery($inserSQL);
 $finish = TRUE;

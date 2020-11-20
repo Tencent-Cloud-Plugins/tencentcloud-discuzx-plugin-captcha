@@ -19,36 +19,41 @@
 const CUSTOM_SECRET_FLAG_OFF = '0';
 const CUSTOM_SECRET_FLAG_ON = '1';
 const SITE_SEC_OPEN = '1';
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
 
-function captchaJsparams() {
+function captchaJsparams()
+{
     global $_G;
-    if(!isset($_G['cache']['plugin'])) {
+    if (!isset($_G['cache']['plugin'])) {
         loadcache('plugin');
     }
-
-    if(substr($_G['setting']['jspath'],0,6)=='static') {
-            $jspath = 'data/cache/';
+    $var = $_G['cache']['plugin']['tencentcloud_captcha'];
+    if (substr($_G['setting']['jspath'], 0, 6) == 'static') {
+        $jspath = 'data/cache/';
     } else {
-            $jspath = $_G['setting']['jspath'];
+        $jspath = $_G['setting']['jspath'];
     }
-    $return =  array('<script src="'.$jspath.'tencentcloudcaptcha.js?'.$_G['style']['verhash'].'" reload="1"></script>
-               <div id="tencentcloudcaptcha" class="','" style="display:none;"></div>','');
+    $return = array('<script src="' . $jspath . 'tencentcloudcaptcha.js?' . $_G['style']['verhash'] . '" reload="1"></script>
+               <div id="tencentcloudcaptcha" class="', '" style="display:none;"></div>', '');
+
+
+    $return[2] = '<div id="recptc" style="display:none;">'.dhtmlspecialchars($var['errormsg']).'</div><script src="'.$jspath.'tencentcloudcaptcham.js?'.$_G['style']['verhash'].'"></script>';
 
     return $return;
 
 }
 
-function config() {
+function config()
+{
     global $_G;
     if (isset($_G['setting']['tencentcloud_captcha'])) {
         $plugin = C::t('common_plugin')->fetch_by_identifier('tencentcloud_captcha');
         C::t('common_pluginvar')->delete_by_pluginid($plugin['pluginid']);
         $params = unserialize($_G['setting']['tencentcloud_captcha']);
     } else {
-        $params = array (
+        $params = array(
             'customSecret' => CUSTOM_SECRET_FLAG_OFF,
             'secretId' => '',
             'secretKey' => '',
@@ -56,16 +61,18 @@ function config() {
             'captchaAppKey' => '',
         );
     }
-    if ($params['customSecret'] == CUSTOM_SECRET_FLAG_OFF && isset($_G['setting']['tencentcloud_center'])){
+    if ($params['customSecret'] == CUSTOM_SECRET_FLAG_OFF && isset($_G['setting']['tencentcloud_center'])) {
         $centerConfig = unserialize($_G['setting']['tencentcloud_center']);
         $params['secretId'] = $centerConfig['secretId'];
         $params['secretKey'] = $centerConfig['secretKey'];
     }
     return $params;
 }
-function getTencentCloudDiscuzStaticData($action){
+
+function getTencentCloudDiscuzStaticData($action)
+{
     global $_G;
-    require_once DISCUZ_ROOT.'./source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
+    require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
     $static_data['action'] = $action;
     $static_data['plugin_type'] = 'captcha';
     $site_url = TencentCloudHelper::siteUrl();
@@ -85,14 +92,14 @@ function getTencentCloudDiscuzStaticData($action){
     if ($captchaParam['customSecret'] == CUSTOM_SECRET_FLAG_ON && isset($captchaParam['secretId']) && isset($captchaParam['secretKey'])) {
         $secretId = $captchaParam['secretId'];
         $secretKey = $captchaParam['secretKey'];
-    }elseif($params['site_sec_on'] == SITE_SEC_OPEN && isset($params['secretId']) && isset($params['secretKey'])){
+    } elseif ($params['site_sec_on'] == SITE_SEC_OPEN && isset($params['secretId']) && isset($params['secretKey'])) {
         $secretId = $params['secretId'];
         $secretKey = $params['secretKey'];
     }
 
     $static_data['data']['uin'] = TencentCloudHelper::getUserUinBySecret($secretId, $secretKey);
     $static_data['data']['cust_sec_on'] = $captchaParam['customSecret'] == CUSTOM_SECRET_FLAG_ON ? 1 : 2;
-    $others =array(
+    $others = array(
         'captcha_appid' => $captchaParam['captchaAppId'],
     );
     $static_data['data']['others'] = json_encode($others);
