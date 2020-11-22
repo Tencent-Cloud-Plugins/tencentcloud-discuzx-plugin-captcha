@@ -19,7 +19,7 @@ if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
 
-$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+$pluginInfo = C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
 
 $file = DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
 
@@ -36,7 +36,7 @@ require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
 
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
 
-$data=getTencentCloudDiscuzStaticData('deactivate');
+$data = getTencentCloudDiscuzStaticData('deactivate');
 
 TencentCloudHelper::sendUserExperienceInfo($data);
 

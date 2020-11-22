@@ -21,7 +21,7 @@ if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
 $file = DISCUZ_ROOT . './source/plugin/tencentcloud_center';
-$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+$pluginInfo = C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
 if (!is_dir($file) || !isset($pluginInfo)) {
     $landurl = 'action=plugins';
     $tencentcloud_captcha = lang('plugin/tencentcloud_captcha');
@@ -29,12 +29,12 @@ if (!is_dir($file) || !isset($pluginInfo)) {
     return;
 }
 
-if ($pluginInfo['available'] != PLUGIN_AVAILABE_FLAG){
+if ($pluginInfo['available'] != PLUGIN_AVAILABE_FLAG) {
     C::t('common_plugin')->update($pluginInfo['pluginid'], array('available' => PLUGIN_AVAILABE_FLAG));
 }
 runquery("UPDATE cdb_tencentcloud_pluginInfo SET status = 'true' WHERE plugin_name='tencentcloud_captcha'");
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
-$data=getTencentCloudDiscuzStaticData('activate');
+$data = getTencentCloudDiscuzStaticData('activate');
 TencentCloudHelper::sendUserExperienceInfo($data);
 

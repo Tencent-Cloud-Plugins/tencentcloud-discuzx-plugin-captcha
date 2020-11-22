@@ -16,13 +16,14 @@
  * limitations under the License.
  */
 
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
-function build_cache_plugin_conf() {
+function build_cache_plugin_conf()
+{
     global $_G;
     include_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
-    if(!isset($_G['cache']['plugin'])) {
+    if (!isset($_G['cache']['plugin'])) {
         loadcache('plugin');
     }
     $config = unserialize($_G['setting']['tencentcloud_captcha']);
@@ -30,12 +31,19 @@ function build_cache_plugin_conf() {
     include template('tencentcloud_captcha:captchajs');
     $message = ob_get_contents();
     ob_end_clean();
-    write_js_to_cache('tencentcloudcaptcha',$message);
+    write_js_to_cache('tencentcloudcaptcha', $message);
 
-    savecache('tencentcloud_captcha',captchaJsparams());
+    ob_start();
+    include template('tencentcloud_captcha:captchajsm');
+    $message = ob_get_contents();
+    ob_end_clean();
+    write_js_to_cache('tencentcloudcaptcham',$message);
+
+    savecache('tencentcloud_captcha', captchaJsparams());
 }
 
-function write_js_to_cache($name, $content) {
+function write_js_to_cache($name, $content)
+{
     $remove = array(
         array(
             '/(^|\r|\n)\/\*.+?\*\/(\r|\n)/is',
@@ -54,7 +62,7 @@ function write_js_to_cache($name, $content) {
         )
     );
     $message = preg_replace($remove[0], $remove[1], $content);
-    if(@$fp = fopen(DISCUZ_ROOT.'./data/cache/'.$name.'.js', 'w')) {
+    if (@$fp = fopen(DISCUZ_ROOT . './data/cache/' . $name . '.js', 'w')) {
         fwrite($fp, $message);
         fclose($fp);
     } else {

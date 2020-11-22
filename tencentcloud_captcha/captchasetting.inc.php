@@ -20,33 +20,33 @@ if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 }
 global $_G;
 $file = DISCUZ_ROOT . './source/plugin/tencentcloud_center';
-$pluginInfo=C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
+$pluginInfo = C::t('common_plugin')->fetch_by_identifier('tencentcloud_center');
 if (!is_dir($file) || !isset($pluginInfo)) {
-   include template('tencentcloud_captcha:error');
-   return;
+    include template('tencentcloud_captcha:error');
+    return;
 }
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
 /**
  * check params
  */
-if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['tencentcloudcaptcha'])){
+if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['tencentcloudcaptcha'])) {
     $data = $_POST['tencentcloudcaptcha'];
     $save_data = array();
-    $save_data['secretId'] = TencentCloudHelper::filterParam( $data['secretId']);
-    $save_data['secretKey'] = TencentCloudHelper::filterParam( $data['secretKey']);
-    $save_data['customSecret'] = TencentCloudHelper::filterParam( $data['customSecret']);
-    $save_data['captchaAppId'] = TencentCloudHelper::filterParam( $data['captchaAppId']);
-    $save_data['captchaAppKey'] = TencentCloudHelper::filterParam( $data['captchaAppKey']);
+    $save_data['secretId'] = TencentCloudHelper::filterParam($data['secretId']);
+    $save_data['secretKey'] = TencentCloudHelper::filterParam($data['secretKey']);
+    $save_data['customSecret'] = TencentCloudHelper::filterParam($data['customSecret']);
+    $save_data['captchaAppId'] = TencentCloudHelper::filterParam($data['captchaAppId']);
+    $save_data['captchaAppKey'] = TencentCloudHelper::filterParam($data['captchaAppKey']);
     C::t('common_setting')->update_batch(array("tencentcloud_captcha" => $save_data));
     updatecache('setting');
-    $landurl = 'action=plugins&operation=config&do='.$pluginid.'&identifier=tencentcloud_captcha&pmod=captchasetting';
-    $staticData=getTencentCloudDiscuzStaticData('save_config');
+    $landurl = 'action=plugins&operation=config&do=' . $pluginid . '&identifier=tencentcloud_captcha&pmod=captchasetting';
+    $staticData = getTencentCloudDiscuzStaticData('save_config');
     TencentCloudHelper::sendUserExperienceInfo($staticData);
     cpmsg('plugins_edit_succeed', $landurl, 'succeed');
 }
 
-$config=config();
+$config = config();
 include template('tencentcloud_captcha:captchasetting');
 
 
