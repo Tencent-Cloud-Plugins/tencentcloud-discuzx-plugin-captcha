@@ -29,12 +29,13 @@ if (!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
 
-class seccode_captcha {
+class seccode_captcha
+{
     //set global secret  0-off 1-on
     const CUSTOM_SECRET_FLAG_OFF = '0';
     //valied captcha function  1-pass others-fail
     const VERIFY_SUCCESS_FLG = 1;
-    public $version = '1.1.0';
+    public $version = '1.0.3';
     public $name = '';
     public $description = '';
     public $copyright = '';
@@ -51,15 +52,16 @@ class seccode_captcha {
      * valide captcha
      * @return bool true/false
      */
-    public function check(){
+    public function check()
+    {
         global $_G;
 
-        if (!isset($_G['setting']['tencentcloud_captcha'])){
+        if (!isset($_G['setting']['tencentcloud_captcha'])) {
             loadcache('setting');
         }
         $params = unserialize($_G['setting']['tencentcloud_captcha']);
 
-        if ($params['customSecret'] == self::CUSTOM_SECRET_FLAG_OFF && isset($_G['setting']['tencentcloud_center'])){
+        if ($params['customSecret'] == self::CUSTOM_SECRET_FLAG_OFF && isset($_G['setting']['tencentcloud_center'])) {
             $centerConfig = unserialize($_G['setting']['tencentcloud_center']);
             $params['secretId'] = $centerConfig['secretId'];
             $params['secretKey'] = $centerConfig['secretKey'];
@@ -67,10 +69,10 @@ class seccode_captcha {
         $ticket = $_GET['codeVerifyTicket'];
         $randStr = $_GET['codeVerifyRandstr'];
 
-        $verifyCode = self::verifyCodeReal($params['secretId'],$params['secretKey'],$ticket,$randStr,$params['captchaAppId'],$params['captchaAppKey']);
+        $verifyCode = self::verifyCodeReal($params['secretId'], $params['secretKey'], $ticket, $randStr, $params['captchaAppId'], $params['captchaAppKey']);
         if ($verifyCode['CaptchaCode'] != self::VERIFY_SUCCESS_FLG) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -79,10 +81,11 @@ class seccode_captcha {
      * output
      * @param $idhash formm hash
      */
-    public function make($idhash){
+    public function make($idhash)
+    {
         global $_G;
         loadcache('tencentcloud_captcha');
-        echo $_G['cache']['tencentcloud_captcha'][0].$idhash.$_G['cache']['tencentcloud_captcha'][1];
+        echo $_G['cache']['tencentcloud_captcha'][0] . $idhash . $_G['cache']['tencentcloud_captcha'][1];
     }
 
     /**
@@ -95,7 +98,8 @@ class seccode_captcha {
      * @param $codeSecretKey
      * @return array|mixed
      */
-    public static function verifyCodeReal($secretID, $secretKey,$ticket, $randStr, $codeAppId, $codeSecretKey){
+    public static function verifyCodeReal($secretID, $secretKey, $ticket, $randStr, $codeAppId, $codeSecretKey)
+    {
 
         try {
             $remote_ip = preg_replace('/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR']);

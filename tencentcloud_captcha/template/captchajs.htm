@@ -1,7 +1,7 @@
 (function () {
 var idhash = $('tencentcloudcaptcha').className;
 var dataAppId = '{$config[captchaAppId]}';
-var showHtml ='<input name="seccodehash" type="hidden" value="'+idhash+'" />
+var showHtml = '<input name="seccodehash" type="hidden" value="'+idhash+'" />
 <button type="button" name="codeVerifyButton" id="codeVerifyButton" data-appid="'+dataAppId+'" class="button">{lang tencentcloud_captcha:not_machine}</button>
 <input type="button" id="codePassButton" disabled="disabled" value="{lang tencentcloud_captcha:check_ok}" />
 <input type="hidden" id="codeVerifyTicket" name="codeVerifyTicket" value=""/>

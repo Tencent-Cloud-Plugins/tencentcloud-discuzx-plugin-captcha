@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
 /**
  * reload cache
  */
-if(isset($_GET['action']) && $_GET['action']=='plugins' && isset($_GET['operation']) && $_GET['operation']=='config' && isset($_GET['tencentcloudcaptcha']['captchaAppId'])) {
+if (isset($_GET['action']) && $_GET['action'] == 'plugins' && isset($_GET['operation']) && $_GET['operation'] == 'config' && isset($_GET['tencentcloudcaptcha']['captchaAppId'])) {
     updatecache('tencentcloud_captcha:conf');
 }
 

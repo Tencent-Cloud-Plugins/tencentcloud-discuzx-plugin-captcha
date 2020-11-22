@@ -22,5 +22,5 @@ if (!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 runquery("DELETE FROM  cdb_tencentcloud_pluginInfo  WHERE plugin_name = 'tencentcloud_captcha'");
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_captcha/lib.class.php';
 require_once DISCUZ_ROOT . './source/plugin/tencentcloud_center/lib/tencentcloud_helper.class.php';
-$data=getTencentCloudDiscuzStaticData('uninstall');
+$data = getTencentCloudDiscuzStaticData('uninstall');
 TencentCloudHelper::sendUserExperienceInfo($data);
